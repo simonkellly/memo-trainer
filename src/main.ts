@@ -144,7 +144,7 @@ const reset = () => {
   memoInputElem.focus();
 };
 
-const fixInput = (e: KeyboardEvent) => {
+const fixInput = () => {
   memoInputElem.value = memoInputElem.value.toUpperCase();
 }
 
