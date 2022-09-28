@@ -152,6 +152,12 @@ const handleKeypress = (e: KeyboardEvent): boolean => {
     return false;
   }
 
+  if (e.key === ' ') {
+    reveal();
+    e.preventDefault();
+    return false;
+  }
+
   return true;
 }
 
