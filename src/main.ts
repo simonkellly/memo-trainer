@@ -137,11 +137,15 @@ const reset = () => {
   memoInputElem.focus();
 };
 
-const fixInput = () => {
+const processInput = (e: KeyboardEvent) => {
+  if (e.key === 'Enter') {
+    check();
+  }
+  
   memoInputElem.value = memoInputElem.value.toUpperCase();
 }
 
-memoInputElem.onkeyup = fixInput;
+memoInputElem.onkeyup = processInput;
 memoTextElem.onselectstart = () => false;
 memoTextElem.onclick = reveal;
 checkButton.onclick = check;
