@@ -81,7 +81,7 @@ const getNumTargets = (): number => {
 
 const generateMemo = (): string => {
   const targets = getNumTargets();
-  const scheme =.value;
+  const scheme = schemeElem.value;
 
   const shuffled = [...scheme].sort(()=>Math.random()-.5).join('');
   return shuffled.slice(0, targets);
@@ -141,7 +141,7 @@ const processInput = (e: KeyboardEvent) => {
   if (e.key === 'Enter') {
     check();
   }
-  
+
   memoInputElem.value = memoInputElem.value.toUpperCase();
 }
 
