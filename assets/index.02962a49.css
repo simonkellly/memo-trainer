@@ -1,0 +1,1 @@
+html{max-width:70ch;padding:calc(1vmin + .5rem);margin-inline:auto;font-size:clamp(1em,.909em + .45vmin,1.25em);font-family:system-ui}body :not(:is(h1,h2,h3,h4,h5,h6)){line-height:1.75}
