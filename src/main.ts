@@ -104,15 +104,19 @@ const reveal = () => {
   } else {
     memoTextElem.textContent = "Done!";
   }
+
+  memoInputElem.focus();
 }
 
 const check = () => {
-  if (memoInputElem.value === memo) {
+  if (memoInputElem.value.toUpperCase() === memo.toLocaleUpperCase()) {
     alert('Correct!');
     reset();
   } else {
     alert('Incorrect!');
   }
+
+  memoInputElem.focus();
 }
 
 const view = () => {
@@ -129,6 +133,7 @@ const view = () => {
   }
 
   memoTextElem.textContent = memo[idx];
+  memoInputElem.focus();
 }
 
 const reset = () => {
@@ -139,6 +144,11 @@ const reset = () => {
   memoInputElem.focus();
 };
 
+const fixInput = (e: KeyboardEvent) => {
+  memoInputElem.value = memoInputElem.value.toUpperCase();
+}
+
+memoInputElem.onkeyup = fixInput;
 memoTextElem.onselectstart = () => false;
 memoTextElem.onclick = reveal;
 checkButton.onclick = check;
