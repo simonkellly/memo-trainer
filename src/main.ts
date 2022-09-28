@@ -56,22 +56,13 @@ appElem.innerHTML = `
   </div>
 `;
 
-//#region Settings
+//#region Elements
+
 const settingsElem = document.querySelector<HTMLDivElement>('#settings')!;
 const settingsButton = document.querySelector<HTMLButtonElement>('#settings-button')!;
-
-settingsElem.style.display = "none";
-
-settingsButton.onclick = () => {
-  settingsElem.style.display = settingsElem.style.display === 'none' ? 'block' : 'none';
-};
-
 const maxAmountElem = document.querySelector<HTMLInputElement>('#max-amount')!;
 const minAmountElem = document.querySelector<HTMLInputElement>('#min-amount')!;
-
-//#endregion
-
-//#region Elements
+const schemeElem = document.querySelector<HTMLInputElement>('#scheme')!;
 const memoTextElem = document.querySelector<HTMLHeadingElement>('#memo-text')!;
 const memoInputElem = document.querySelector<HTMLInputElement>('#memo-input')!;
 const checkButton = document.querySelector<HTMLButtonElement>('#check-button')!;
@@ -79,6 +70,8 @@ const viewButton = document.querySelector<HTMLButtonElement>('#view-button')!;
 const resetButton = document.querySelector<HTMLButtonElement>('#reset-button')!;
 
 //#endregion
+
+//#region Trainer
 
 const getNumTargets = (): number => {
   const min = parseInt(minAmountElem.value);
@@ -88,7 +81,7 @@ const getNumTargets = (): number => {
 
 const generateMemo = (): string => {
   const targets = getNumTargets();
-  const scheme = document.querySelector<HTMLInputElement>('#scheme')!.value;
+  const scheme =.value;
 
   const shuffled = [...scheme].sort(()=>Math.random()-.5).join('');
   return shuffled.slice(0, targets);
@@ -156,3 +149,34 @@ viewButton.onclick = view;
 resetButton.onclick = reset;
 
 reset();
+
+//#endregion
+
+//#region Settings
+
+settingsElem.style.display = "none";
+
+settingsButton.onclick = () => {
+  settingsElem.style.display = settingsElem.style.display === 'none' ? 'block' : 'none';
+};
+
+const saveSettings = (restore: boolean) => {
+  if (restore) {
+    schemeElem.value = localStorage.getItem('scheme') || defaultLetterScheme;
+    minAmountElem.value = localStorage.getItem('min') || '10';
+    maxAmountElem.value = localStorage.getItem('max') || '11';
+    return;
+  }
+
+  localStorage.setItem('scheme', schemeElem.value);
+  localStorage.setItem('min', minAmountElem.value);
+  localStorage.setItem('max', maxAmountElem.value);
+}
+
+schemeElem.onchange = () => saveSettings(false);
+minAmountElem.onchange = () => saveSettings(false);
+maxAmountElem.onchange = () => saveSettings(false);
+
+saveSettings(true);
+
+//#endregion
