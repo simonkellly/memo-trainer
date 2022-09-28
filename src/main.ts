@@ -15,6 +15,7 @@ appElem.innerHTML = `
       name="memo-input" 
       placeholder="Enter the memo"
       size="30"
+      style="text-transform: uppercase"
     >
     <button type="button" id="check-button">Check</button>
     <br>
@@ -137,17 +138,29 @@ const reset = () => {
   memoInputElem.focus();
 };
 
-const processInput = (e: KeyboardEvent) => {
-  if (e.key === 'Enter') {
+const fixInput = () => {
+  memoInputElem.value = memoInputElem.value.toUpperCase().replace(/\s+/g, '');;
+  if (memoInputElem.value === memo) {
     check();
   }
-
-  memoInputElem.value = memoInputElem.value.toUpperCase();
 }
 
-memoInputElem.onkeyup = processInput;
+const handleKeypress = (e: KeyboardEvent): boolean => {
+  if (e.key === 'Enter') {
+    check();
+    e.preventDefault();
+    return false;
+  }
+
+  return true;
+}
+
+memoInputElem.addEventListener("keypress", handleKeypress);
+memoInputElem.onkeyup = fixInput;
+
 memoTextElem.onselectstart = () => false;
 memoTextElem.onclick = reveal;
+
 checkButton.onclick = check;
 viewButton.onclick = view;
 resetButton.onclick = reset;
