@@ -107,7 +107,7 @@ const setMemoString = () => {
   const modIndex = idx * chunkSize;
   
   if (modIndex < memo.length) {
-    memoTextElem.textContent = memo.substring(modIndex).substring(0, 2);
+    memoTextElem.textContent = memo.substring(modIndex).substring(0, chunkSize);
   } else {
     memoTextElem.textContent = "Done!";
   }
