@@ -5,7 +5,6 @@ const defaultLetterScheme = 'ABCDEFGHIJKLMNOPQRSTUVWX'
 const appElem = document.querySelector<HTMLDivElement>('#app')!;
 appElem.innerHTML = `
   <h2>Memo Trainer</h2>
-  <p>Click the memo to reveal the next target</p>
   <div id="trainer">
     <h1 id="memo-text">QAJSHFJQKWJE</h1>
 
@@ -25,6 +24,7 @@ appElem.innerHTML = `
   <br>
   <button type="button" id="settings-button">Toggle Settings</button>
   <div id="settings">
+    <p>Click the memo or press space to reveal the next target</p>
     <label for="phone">Enter your letter scheme:</label> 
     <br>
     <input 
