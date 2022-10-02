@@ -35,6 +35,16 @@ appElem.innerHTML = `
       size="40"
     >
     <br>
+    <label for="phone">Enter amount of targets to reveal</label> 
+    <br>
+    <input 
+      type="number" 
+      id="chunk-size" 
+      name="chunk-size" 
+      value="2"
+      size="10"
+    >
+    <br>
     <label for="phone">Enter minimum number of targets</label> 
     <br>
     <input 
@@ -61,6 +71,7 @@ appElem.innerHTML = `
 
 const settingsElem = document.querySelector<HTMLDivElement>('#settings')!;
 const settingsButton = document.querySelector<HTMLButtonElement>('#settings-button')!;
+const chunkElem = document.querySelector<HTMLInputElement>('#chunk-size')!;
 const maxAmountElem = document.querySelector<HTMLInputElement>('#max-amount')!;
 const minAmountElem = document.querySelector<HTMLInputElement>('#min-amount')!;
 const schemeElem = document.querySelector<HTMLInputElement>('#scheme')!;
@@ -91,15 +102,22 @@ const generateMemo = (): string => {
 let memo: string;
 let idx: number;
 
-const reveal = () => {
-  idx++;
-  if (idx < memo.length) {
-    memoTextElem.textContent = memo[idx];
+const setMemoString = () => {
+  const chunkSize = parseInt(chunkElem.value);
+  const modIndex = idx * chunkSize;
+  
+  if (modIndex < memo.length) {
+    memoTextElem.textContent = memo.substring(modIndex).substring(0, 2);
   } else {
     memoTextElem.textContent = "Done!";
   }
 
   memoInputElem.focus();
+}
+
+const reveal = () => {
+  idx++;
+  setMemoString();
 }
 
 const check = () => {
@@ -121,21 +139,14 @@ const view = () => {
     return;
   }
 
-  if (idx >= memo.length) {
-    memoTextElem.textContent = "Done!";
-    return;
-  }
-
-  memoTextElem.textContent = memo[idx];
-  memoInputElem.focus();
+  setMemoString();
 }
 
 const reset = () => {
   idx = 0;
   memo = generateMemo();
-  memoTextElem.textContent = memo[idx];
+  setMemoString();
   memoInputElem.value = '';
-  memoInputElem.focus();
 };
 
 const fixInput = () => {
