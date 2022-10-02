@@ -162,7 +162,7 @@ const handleKeypress = (e: KeyboardEvent): boolean => {
 }
 
 memoInputElem.addEventListener("keypress", handleKeypress);
-memoInputElem.onkeyup = fixInput;
+memoInputElem.onchange = fixInput;
 
 memoTextElem.onselectstart = () => false;
 memoTextElem.onclick = reveal;
